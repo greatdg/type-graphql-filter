@@ -8,10 +8,10 @@
   "author": "Kontist GmbH",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "test": "npm run lint && npm run build && mocha --recursive 'dist/tests/**/*.spec.js'",
     "cover": "nyc npm run test",
-    "lint": "tslint --fix --project ."
+    "lint": "npx tslint --fix --project ."
   },
   "dependencies": {
     "graphql": "^14.5.8",
