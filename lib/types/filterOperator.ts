@@ -6,7 +6,12 @@ export type FilterOperator =
   | "eq"
   | "ne"
   | "in"
+  | "relation_in"
   | "like"
   | "likeAny";
 
-export const ARRAY_RETURN_TYPE_OPERATORS: FilterOperator[] = ["in", "likeAny"];
+export const ARRAY_RETURN_TYPE_OPERATORS: FilterOperator[] = [
+  "relation_in",
+  "in",
+  "likeAny",
+];
