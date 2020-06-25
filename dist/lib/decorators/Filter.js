@@ -9,7 +9,7 @@ const metadata_1 = require("../metadata");
  * @param operators
  * @param returnTypeFunction
  */
-function Filter(operators, returnTypeFunction) {
+function Filter(operators, returnTypeFunction, options) {
     return (prototype, field) => {
         const metadataStorage = metadata_1.getMetadataStorage();
         metadataStorage.filters.push({
@@ -17,6 +17,7 @@ function Filter(operators, returnTypeFunction) {
             getReturnType: returnTypeFunction,
             operators: typeof operators === "string" ? [operators] : operators,
             target: prototype.constructor,
+            options,
         });
     };
 }

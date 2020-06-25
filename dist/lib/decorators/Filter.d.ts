@@ -1,4 +1,4 @@
-import { FilterOperator, ReturnTypeFunc } from "../types";
+import { FilterOperator, ReturnTypeFunc, FilterOptions } from "../types";
 /**
  * This decorator will store filters information for the field in a metadata storage.
  * We will use this metadata later on to generate an InputType for the filters argument
@@ -6,4 +6,4 @@ import { FilterOperator, ReturnTypeFunc } from "../types";
  * @param operators
  * @param returnTypeFunction
  */
-export declare function Filter(operators: FilterOperator | FilterOperator[], returnTypeFunction?: ReturnTypeFunc): PropertyDecorator;
+export declare function Filter(operators: FilterOperator | FilterOperator[], returnTypeFunction?: ReturnTypeFunc, options?: FilterOptions): PropertyDecorator;
