@@ -32,7 +32,7 @@ exports.generateFilterType = (type) => {
     // Call the @InputType decorator on that class
     type_graphql_1.InputType()(conditionTypeContainer[conditionTypeName]);
     // Simulate creation of fields for this class/InputType by calling @Field()
-    for (const { field, operators, getReturnType } of filtersData) {
+    for (const { field, operators, getReturnType, options } of filtersData) {
         // When dealing with methods decorated with @Field, we need to lookup the GraphQL
         // name and use that for our filter name instead of the plain method name
         const graphQLField = typeGraphQLMetadata.fieldResolvers.find((fr) => fr.target === type && fr.methodName === field);
@@ -43,7 +43,9 @@ exports.generateFilterType = (type) => {
             const returnTypeFunction = types_1.ARRAY_RETURN_TYPE_OPERATORS.includes(operator)
                 ? () => [baseReturnType]
                 : () => baseReturnType;
-            type_graphql_1.Field(returnTypeFunction, { nullable: true })(conditionTypeContainer[conditionTypeName].prototype, `${String(fieldName)}_${operator}`);
+            const fieldExtendName = (options === null || options === void 0 ? void 0 : options.aliasTable) ? `${options === null || options === void 0 ? void 0 : options.aliasTable}#${String(fieldName)}_${operator}`
+                : `${String(fieldName)}_${operator}`;
+            type_graphql_1.Field(returnTypeFunction, { nullable: true })(conditionTypeContainer[conditionTypeName].prototype, fieldExtendName);
         }
     }
     // Extend the Condition type to create the final Filter type

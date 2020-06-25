@@ -38,7 +38,7 @@ export const generateFilterType = (type: Function) => {
   InputType()(conditionTypeContainer[conditionTypeName]);
 
   // Simulate creation of fields for this class/InputType by calling @Field()
-  for (const { field, operators, getReturnType } of filtersData) {
+  for (const { field, operators, getReturnType, options } of filtersData) {
     // When dealing with methods decorated with @Field, we need to lookup the GraphQL
     // name and use that for our filter name instead of the plain method name
     const graphQLField = typeGraphQLMetadata.fieldResolvers.find(
@@ -59,9 +59,13 @@ export const generateFilterType = (type: Function) => {
         ? () => [baseReturnType]
         : () => baseReturnType;
 
+      const fieldExtendName = options?.aliasTable
+        ? `${options?.aliasTable}#${String(fieldName)}_${operator}`
+        : `${String(fieldName)}_${operator}`;
+
       Field(returnTypeFunction, { nullable: true })(
         conditionTypeContainer[conditionTypeName].prototype,
-        `${String(fieldName)}_${operator}`
+        fieldExtendName
       );
     }
   }
