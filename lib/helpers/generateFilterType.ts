@@ -24,7 +24,7 @@ export const generateFilterType = (type: Function) => {
 
   if (!graphQLModel) {
     throw new Error(
-      `Please decorate your class "${type}" with @ObjectType if you want to filter it`,
+      `Please decorate your class "${type}" with @ObjectType if you want to filter it`
     );
   }
 
@@ -42,14 +42,14 @@ export const generateFilterType = (type: Function) => {
     // When dealing with methods decorated with @Field, we need to lookup the GraphQL
     // name and use that for our filter name instead of the plain method name
     const graphQLField = typeGraphQLMetadata.fieldResolvers.find(
-      (fr) => fr.target === type && fr.methodName === field,
+      (fr) => fr.target === type && fr.methodName === field
     );
 
     const fieldName = graphQLField ? graphQLField.schemaName : field;
 
     Field(() => BaseOperator, { nullable: true })(
       conditionTypeContainer[conditionTypeName].prototype,
-      "operator",
+      "operator"
     );
 
     for (const operator of operators) {
@@ -61,7 +61,7 @@ export const generateFilterType = (type: Function) => {
 
       Field(returnTypeFunction, { nullable: true })(
         conditionTypeContainer[conditionTypeName].prototype,
-        `${String(fieldName)}_${operator}`,
+        `${String(fieldName)}_${operator}`
       );
     }
   }
@@ -69,7 +69,9 @@ export const generateFilterType = (type: Function) => {
   // Extend the Condition type to create the final Filter type
   const filterTypeName = graphQLModel.name + "Filter";
   const filterTypeContainer = {
-    [filterTypeName]: class extends conditionTypeContainer[conditionTypeName] {},
+    [filterTypeName]: class extends conditionTypeContainer[
+      conditionTypeName
+    ] {},
   };
 
   InputType()(filterTypeContainer[filterTypeName]);

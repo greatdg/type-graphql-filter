@@ -1,5 +1,5 @@
 import { getMetadataStorage } from "../metadata";
-import { FilterOperator, ReturnTypeFunc } from "../types";
+import { FilterOperator, ReturnTypeFunc, FilterOptions } from "../types";
 
 /**
  * This decorator will store filters information for the field in a metadata storage.
@@ -11,6 +11,7 @@ import { FilterOperator, ReturnTypeFunc } from "../types";
 export function Filter(
   operators: FilterOperator | FilterOperator[],
   returnTypeFunction?: ReturnTypeFunc,
+  options?: FilterOptions
 ): PropertyDecorator {
   return (prototype, field: string | symbol) => {
     const metadataStorage = getMetadataStorage();
@@ -20,6 +21,7 @@ export function Filter(
       getReturnType: returnTypeFunction,
       operators: typeof operators === "string" ? [operators] : operators,
       target: prototype.constructor,
+      options,
     });
   };
 }
