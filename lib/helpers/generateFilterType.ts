@@ -60,7 +60,7 @@ export const generateFilterType = (type: Function) => {
         : () => baseReturnType;
 
       const fieldExtendName = options?.aliasTable
-        ? `${options?.aliasTable}#${String(fieldName)}_${operator}`
+        ? `${options?.aliasTable}__${String(fieldName)}_${operator}`
         : `${String(fieldName)}_${operator}`;
 
       Field(returnTypeFunction, { nullable: true })(

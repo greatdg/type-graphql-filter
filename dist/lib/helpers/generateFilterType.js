@@ -43,7 +43,7 @@ exports.generateFilterType = (type) => {
             const returnTypeFunction = types_1.ARRAY_RETURN_TYPE_OPERATORS.includes(operator)
                 ? () => [baseReturnType]
                 : () => baseReturnType;
-            const fieldExtendName = (options === null || options === void 0 ? void 0 : options.aliasTable) ? `${options === null || options === void 0 ? void 0 : options.aliasTable}#${String(fieldName)}_${operator}`
+            const fieldExtendName = (options === null || options === void 0 ? void 0 : options.aliasTable) ? `${options === null || options === void 0 ? void 0 : options.aliasTable}__${String(fieldName)}_${operator}`
                 : `${String(fieldName)}_${operator}`;
             type_graphql_1.Field(returnTypeFunction, { nullable: true })(conditionTypeContainer[conditionTypeName].prototype, fieldExtendName);
         }
